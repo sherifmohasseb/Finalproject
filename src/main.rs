@@ -56,3 +56,14 @@ fn parse_dataset(file_path: &str) -> Vec<(f64, f64, f64, f64)> {
 
     dataset
 }
+fn is_numeric(value: &str) -> bool {
+    value.parse::<f64>().is_ok()
+}
+
+fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+where
+    P: AsRef<Path>,
+{
+    let file = File::open(filename)?;
+    Ok(io::BufReader::new(file).lines())
+}
