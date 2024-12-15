@@ -81,3 +81,18 @@ fn standard_deviation(data: &[f64]) -> f64 {
     let variance = data.iter().map(|x| (x - avg).powi(2)).sum::<f64>() / data.len() as f64;
     variance.sqrt()
 }
+fn pearson_correlation(x: &[f64], y: &[f64]) -> f64 {
+    if x.len() != y.len() || x.is_empty() {
+        return 0.0;
+    }
+    let mean_x = mean(x);
+    let mean_y = mean(y);
+    let numerator: f64 = x.iter().zip(y.iter()).map(|(xi, yi)| (xi - mean_x)*(yi - mean_y)).sum();
+    let denominator_x = x.iter().map(|xi| (xi - mean_x).powi(2)).sum::<f64>().sqrt();
+    let denominator_y = y.iter().map(|yi| (yi - mean_y).powi(2)).sum::<f64>().sqrt();
+    if denominator_x == 0.0 || denominator_y == 0.0 {
+        0.0
+    } else {
+        numerator / (denominator_x * denominator_y)
+    }
+}
