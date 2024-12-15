@@ -67,3 +67,9 @@ where
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
 }
+fn mean(data: &[f64]) -> f64 {
+    if data.is_empty() {
+        return 0.0;
+    }
+    data.iter().sum::<f64>() / data.len() as f64
+}
