@@ -73,3 +73,11 @@ fn mean(data: &[f64]) -> f64 {
     }
     data.iter().sum::<f64>() / data.len() as f64
 }
+fn standard_deviation(data: &[f64]) -> f64 {
+    if data.len() < 2 {
+        return 0.0;
+    }
+    let avg = mean(data);
+    let variance = data.iter().map(|x| (x - avg).powi(2)).sum::<f64>() / data.len() as f64;
+    variance.sqrt()
+}
